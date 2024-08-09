@@ -61,23 +61,22 @@ VME_MESYTEC_VMMR8(geom)
 		// bus = event.part3
 
 		// HOW TO MAKE SINGLE VARIABLE FOR EACH BUS DATA
-		
 		if (1 == event.type) {
-			// ADC.
-		        ENCODE(data[event.part3] // bus
-			       [(event.part2 << 4 | event.part1)] // Channel
-			       , (value = event.part0));
+		  // ADC.
+		  ENCODE(data[event.part3] // bus
+			 [(event.part2 << 4 | event.part1)] // Channel
+			 , (value = event.part0));
 		}
-		if (2 == event.type) {
-			// Extended timestamp.
-			ENCODE(time_ext APPEND_LIST,
-			    (value = event.part1 << 12 | event.part0));
+		if (2 == event.type && 0 == event.part2) {
+		  // Time difference.
+		  ENCODE(time_diff[
+				   event.part3 // Bus.
+				   ], (value = event.part1 << 12 | event.part0));
 		}
-		if (3 == event.type) {
-			// Time difference.
-			ENCODE(time_diff[
-			    event.part3 // Bus.
-				], (value = event.part1 << 12 | event.part0));
+		if (2 == event.type && 0 != event.part2) {
+		  // Extended timestamp.
+		  ENCODE(time_ext APPEND_LIST,
+			 (value = event.part1 << 12 | event.part0));
 		}
 	}
 
