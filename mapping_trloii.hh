@@ -1,3 +1,6 @@
+SIGNAL(TS_LO, main.tpat.ts_lo, DATA32);
+SIGNAL(TS_HI, main.tpat.ts_hi, DATA32);
+SIGNAL(TRIG,  main.tpat.trig, DATA8);
 SIGNAL(TPAT1, main.tpat.tpat, DATA16);
 SIGNAL(NO_INDEX_LIST: TPAT170);
 
